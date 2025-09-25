@@ -1,0 +1,57 @@
+
+
+# Programa de Gerenciador de Tarefas
+# Autor: Yngrid Martins 
+# Data: 24/09/2025
+# Tive um problema com o índice começando em 0, esqueci de subtrair 1 no input inicial, corriji agora.
+
+tarefas = []
+
+# Função para exibir o menu principal
+def mostrar_menu():
+    print("\n--- MENU ---")
+    print("1 - Adicionar tarefa")
+    print("2 - Listar tarefas")
+    print("3 - Concluir tarefa")
+    print("4 - Remover tarefa")
+    print("5 - Sair")
+
+while True:
+    mostrar_menu()
+    opcao = input("Escolha uma opção: ")
+
+    if opcao == "1":
+        descricao = input("Digite a tarefa: ")  # Solicita a tarefa do usuário
+        tarefas.append({"descricao": descricao, "concluida": False})
+        print("Tarefa adicionada!")
+
+    elif opcao == "2":
+        if len(tarefas) == 0:
+            print("Nenhuma tarefa cadastrada.")  # Não chequei se a lista estava vazia antes, adicionei o if pra evitar crash
+        else:
+            for i, t in enumerate(tarefas):
+                status = "✔" if t["concluida"] else "✘"  # Marca se a tarefa está concluída
+                print(f"{i+1}. {t['descricao']} [{status}]")
+
+    elif opcao == "3":
+        num = int(input("Número da tarefa: ")) - 1  # Subtrai 1 por causa do índice
+        if 0 <= num < len(tarefas):
+            tarefas[num]["concluida"] = True
+            print("Tarefa concluída!")  # Esqueci de fechar o parêntese em um print, deu erro de sintaxe, corrigi manualmente
+        else:
+            print("Número inválido.")
+
+    elif opcao == "4":
+        num = int(input("Número da tarefa: ")) - 1
+        if 0 <= num < len(tarefas):
+            tarefas.pop(num)
+            print("Tarefa removida!")
+        else:
+            print("Número inválido.")
+
+    elif opcao == "5":
+        print("Saindo do sistema...")
+        break
+
+    else:
+        print("Opção inválida, tente de novo.")
